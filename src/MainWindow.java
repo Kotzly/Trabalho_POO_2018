@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Window.Type;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.GridLayout;
@@ -13,6 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import java.awt.Canvas;
 import java.awt.Panel;
@@ -28,12 +32,21 @@ import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel pnlItems;
 	private JTabbedPane tabsPane;
+	private JPanel simPanel;
+	private LogicBlock rect1;
+	private LogicBlock rect2;
+	private LogicBlock selectedBlock;
 
 	/**
 	 * Launch the application.
@@ -55,6 +68,7 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
+		
 		setForeground(Color.DARK_GRAY);
 		setType(Type.UTILITY);
 		setTitle("Digital Simulator");
@@ -113,40 +127,100 @@ public class MainWindow extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		tabsPane.addTab("New tab", null, scrollPane, null);
 		
-		JPanel simPanel = new JPanel();
+		simPanel = new JPanel();
+		simPanel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				simPanel.remove(selectedBlock);
+			}
+		});
+		
+
+		
 		simPanel.setBackground(Color.WHITE);
 		simPanel.setForeground(Color.LIGHT_GRAY);
 		
 		scrollPane.setViewportView(simPanel);
-		simPanel.setLayout(null);
 		
 		
-		LogicBlock rect = new LogicBlock();
-		rect.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				if(rect.isSelected) {
-					rect.setBounds(rect.getX()+arg0.getX()-10,rect.getY()+arg0.getY()-10, 121, 121);
-				}
-			}
-		});
-		rect.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				
-				rect.select();
-				
-			}
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				rect.deselect();
-			}
-		});
-		rect.setBackground(Color.WHITE);
-		rect.setBounds(0, 0, 111, 	111);
+		rect1 = new LogicBlock();
+		System.out.print(rect1.myg);
+		rect1.setBackground(Color.WHITE);
 		
-		simPanel.add(rect);
+		GroupLayout gl_simPanel = new GroupLayout(simPanel);
+		gl_simPanel.setHorizontalGroup(
+			gl_simPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(rect1, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+		);
+		gl_simPanel.setVerticalGroup(
+			gl_simPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_simPanel.createSequentialGroup()
+					.addComponent(rect1, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+					.addGap(165))
+		);
+		simPanel.setLayout(gl_simPanel);
+
+		
 		contentPane.setLayout(gl_contentPane);
+		
+		initActions();
+		
+	}
+	
+	private void initActions() {
+		
+		
+		simPanel.addMouseListener(new MouseAdapter() {
+			
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if( !(simPanel.getComponentAt(arg0.getX(),arg0.getY()) instanceof LogicBlock) ) {
+					return;
+				}
+				
+				selectedBlock = (LogicBlock) simPanel.getComponentAt(arg0.getX(),arg0.getY());
+				if(selectedBlock == null) {
+					return;
+				}
+		
+				if(arg0.getButton() != arg0.BUTTON1) {
+					simPanel.remove(selectedBlock);
+					simPanel.repaint();
+					return;
+					
+				}
+				
+				if(selectedBlock.isSelected) {
+					selectedBlock.select();
+					simPanel.removeMouseMotionListener(simPanel.getMouseMotionListeners()[0]);
+					return;
+				}	
+				
+				
+				selectedBlock.select();
+				
+
+				
+				simPanel.addMouseMotionListener(new MouseMotionAdapter() {
+					@Override
+					public void mouseMoved(MouseEvent arg0) {
+						
+						if(selectedBlock.isSelected) {
+							System.out.println(selectedBlock.getWidth()+" "+selectedBlock.getHeight());
+							//selectedBlock.setBounds(-selectedBlock.getWidth()/2+selectedBlock.getX()+arg0.getX()-10,-selectedBlock.getHeight()/2+selectedBlock.getY()+arg0.getY()-10, 121, 121);
+							selectedBlock.setBounds(-selectedBlock.getWidth()/2+arg0.getX()-10,-selectedBlock.getHeight()/2+arg0.getY()-10, 121, 121);
+						}
+						
+					}
+				});
+				
+								
+			}
+		});
+		
+		
 		
 	}
 }
