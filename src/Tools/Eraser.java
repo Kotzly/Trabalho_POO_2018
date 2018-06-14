@@ -5,17 +5,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Random;
+
+import javax.swing.JOptionPane;
 
 
-public class Pencil extends Tool {
+public class Eraser extends Tool {
 	
 	public boolean isHold;
 	
-	public Pencil() {
-		super(ToolType.Pencil);
-
+	public Eraser() {
+		super(ToolType.Eraser);
 		isHold=false;
 	}
 
@@ -25,7 +24,7 @@ public class Pencil extends Tool {
 	
 	@Override
 	public Graphics draw(MouseEvent mouse, Graphics2D pallet,BasicStroke w, Color color) {
-
+	
 		Point p = new Point(mouse.getX(),mouse.getY());
 		
 		pallet.setColor(color);
@@ -49,14 +48,15 @@ public class Pencil extends Tool {
         }
 
 		return pallet;
+
 		
 	}
-
+	
 	@Override
 	public Tool copy() {
-		return new Pencil();
+		return new Eraser();
 	}
 	
-	
+
 
 }
