@@ -12,12 +12,16 @@ import javax.swing.*;
 import ScreenImage.ScreenImage;
 
 public class LogicBlock extends JPanel implements Serializable{
-	public Graphics myg;
+
 	boolean isSelected = false;
 	private BufferedImage model;
-	private ArrayList<InNode> inNodes;
-	private ArrayList<OutNode> outNodes;
+	private ArrayList<InNodeTool> inNodes;
+	private ArrayList<OutNodeTool> outNodes;
 //	private ArrayList<elementoLogico> logicElements;
+	private String blockName;
+	private int blockId;
+	private static int blockNumber=0;
+	public LogicBlockNodes<NodePanel,NodePanel> nodesList;
 	/**
 	 * 
 	 */
@@ -28,9 +32,16 @@ public class LogicBlock extends JPanel implements Serializable{
 	}
 	
 	
-	public LogicBlock(java.lang.String imagePath) {
-
-		
+	public void setNodes( ArrayList<NodePanel> inNodeList, ArrayList<NodePanel> outNodeList) {
+		nodesList.setInNodeList(inNodeList);
+		nodesList.setOutNodeList(outNodeList);
+	}
+	
+	public LogicBlock(java.lang.String imagePath, String name) {
+		blockNumber++;
+		this.blockName=name;
+		this.blockId=blockNumber;
+		nodesList = new LogicBlockNodes<NodePanel,NodePanel>();
 		File path= new File(imagePath);
 		
 
@@ -44,6 +55,7 @@ public class LogicBlock extends JPanel implements Serializable{
 
 		this.setBounds(0, 0, model.getWidth(),model.getHeight() );
 		this.setLayout(null);
+		
 
 	}
 	
@@ -72,6 +84,10 @@ public class LogicBlock extends JPanel implements Serializable{
 	
 	public boolean isSelected() {
 		return isSelected;
+	}
+	
+	public String getName() {
+		return blockName;
 	}
 	
 }	

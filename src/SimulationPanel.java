@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SimulationPanel extends JPanel implements Serializable{
 
@@ -18,6 +20,7 @@ public class SimulationPanel extends JPanel implements Serializable{
 		private Timer timer;
 		private Time time;
 		BufferedImage backGroundImage;
+		NodePanel selectedNode;
 //		private GraphPanel graph;
 		
 		public SimulationPanel(String imagePath) {
@@ -38,6 +41,7 @@ public class SimulationPanel extends JPanel implements Serializable{
 		}
 		
 		public SimulationPanel() {
+
 			_SimulationPanel();
 		}
 		private void _SimulationPanel() {
@@ -46,9 +50,9 @@ public class SimulationPanel extends JPanel implements Serializable{
 			setLayout(null);
 			
 			JPanel panel = new JPanel();
-			panel = new GraphPanel(5);
-			add(panel);
-			((GraphPanel) panel).drawCurves();
+			panel = new GraphPanel();
+		//	add(panel);
+		//	((GraphPanel) panel).drawCurves(null);
 			time = new Time(0);
 			timer = new Timer();
 			logicBlockArray = new ArrayList<LogicBlock>();
@@ -75,5 +79,32 @@ public class SimulationPanel extends JPanel implements Serializable{
 		}
 		public void removeLogicBlock(int position) {
 			logicBlockArray.remove(position);
+		}
+		
+		public void addEvents() {
+			addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					JPanel node = (JPanel) getComponentAt(arg0.getPoint()); 
+					if(node instanceof NodePanel) {
+						if(selectedNode == null) {
+							
+								selectedNode= (NodePanel) node;
+							
+						}else {
+							connect((NodePanel) node,selectedNode);
+						}
+					}
+				}
+
+
+			});
+		}
+		
+		private void connect(NodePanel node, NodePanel selectedNode) {
+			// TODO Auto-generated method stub
+			selectedNode.addConnection(node);
+			node.addConnection(selectedNode);
+			
 		}
 }

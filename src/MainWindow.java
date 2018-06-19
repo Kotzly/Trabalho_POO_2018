@@ -50,6 +50,14 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
+import java.awt.Rectangle;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import javax.swing.JSpinner;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class MainWindow extends JFrame {
 
@@ -83,7 +91,7 @@ public class MainWindow extends JFrame {
 	private JMenuItem mntmSaveSimulation;
 	private JMenuItem mntmNewSimulation;
 	private ArrayList<LogicBlock> blockDictionary;
-	private JPanel panel_1;
+
 	
 	/**
 	 * Launch the application.
@@ -181,51 +189,86 @@ public class MainWindow extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		simPanel = new JPanel();
+		simPanel.setPreferredSize(new Dimension(1000,300));
 		simPanel.setBackground(Color.WHITE);
 		simPanel.setForeground(Color.LIGHT_GRAY);
 		simPanel.setLayout(null);
+	//	simPanel.setBounds(0, 0, 900, 900);
 		
-		blocks = new ArrayList<JPanel>();
+		//blocks = new ArrayList<JPanel>();
 
-		block = new LogicBlock("C:\\Users\\Paulo Augusto\\Desktop\\image.jpg");
+		block = new LogicBlock("C:\\Users\\Paulo Augusto\\Desktop\\image.jpg", "myblock");
 		
+//		SaveWorker.saveObject("C:\\Users\\Paulo Augusto\\Desktop\\block.ser",block);
+//		
+//		LogicBlock otherblock;
+//		otherblock = (LogicBlock) SaveWorker.getObject("C:\\Users\\Paulo Augusto\\Desktop\\block.ser");
 		simPanel.add(block);
 		
-				
-
 		tabsPane = new JTabbedPane(JTabbedPane.TOP);
 	
-		scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();		
+		scrollPane.setPreferredSize(new Dimension(700,300));
+		
 		
 		pnlLogicBlocks = new JScrollPane();
 		
+		JList lstLogicBlocks = new JList();
+		lstLogicBlocks.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println(lstLogicBlocks.getSelectedIndex());
+			}
+		});
+		lstLogicBlocks.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Paulo", "Axel", "Fran"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		
+		pnlLogicBlocks.setViewportView(lstLogicBlocks);
+		
 		pnlOtherBlocks = new JScrollPane();
 		
+		JList lstOtherBlocks = new JList();
+		pnlOtherBlocks.setViewportView(lstOtherBlocks);
+		
 		btnPause = new JButton("");
-		btnPause.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\src\\resources\\pause.png"));
+		btnPause.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\resources\\play.png"));
 		btnPause.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnPause.setToolTipText("Pause simulation");
+		transparentIcon(btnPause);
+
 		
 		btnStart = new JButton("");
 		btnStart.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\src\\resources\\play.png"));
 		btnStart.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnStart.setToolTipText("Start simulation");
+		transparentIcon(btnStart);
 		
 		btnStop = new JButton("");
 		btnStop.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\src\\resources\\stop.png"));
 		btnStop.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnStop.setToolTipText("Stop Simulation");
+		transparentIcon(btnStop);
 		
 		btnStep = new JButton("");
 		btnStep.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\src\\resources\\step.png"));
 		btnStep.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnStep.setToolTipText("Advance a step in time");
+		transparentIcon(btnStep);
 		
 		btnStopClock = new JButton("");
 		btnStopClock.setIcon(new ImageIcon("C:\\Users\\Paulo Augusto\\eclipse-workspace\\Simulator_GUI\\src\\resources\\clock.png"));
 		btnStopClock.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnStopClock.setToolTipText("Start/Stop clocks");
-
+		transparentIcon(btnStopClock);
+		
+		
 		pnlSimulationButtons = new JPanel();
 		pnlSimulationButtons.setLayout(new GridLayout(0, 5, 0, 0));		
 		pnlSimulationButtons.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -260,27 +303,31 @@ public class MainWindow extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(pnlSimulationButtons, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(pnlLogicBlocks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(pnlOtherBlocks, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tabsPane, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+						.addComponent(pnlOtherBlocks, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+						.addComponent(pnlLogicBlocks))
+					.addGap(18)
+					.addComponent(tabsPane, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(tabsPane, Alignment.LEADING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addComponent(pnlSimulationButtons, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(pnlLogicBlocks, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(pnlOtherBlocks, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)))
+					.addComponent(pnlSimulationButtons, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(pnlLogicBlocks, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(pnlOtherBlocks, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(35, Short.MAX_VALUE))
+				.addComponent(tabsPane, GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
 		);
 		
 			
+	}
+	
+	private void transparentIcon(JButton button) {
+		button.setOpaque(false);
+		button.setContentAreaFilled(false);
+		button.setBorderPainted(false);
 	}
 	
 	private void initActions() {

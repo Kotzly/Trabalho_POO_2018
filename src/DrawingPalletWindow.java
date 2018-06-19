@@ -27,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
@@ -37,11 +38,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JSplitPane;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DrawingPalletWindow extends JFrame {
 
@@ -74,6 +78,7 @@ public class DrawingPalletWindow extends JFrame {
 	private BasicStroke drawingStroke;
 	private JButton btnSave;
 	private JPanel pnlRight;
+	private ArrayList<NodePanel> nodeList;
 	/**
 	 * Launch the application.
 	 */
@@ -97,6 +102,7 @@ public class DrawingPalletWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public DrawingPalletWindow() {
+		nodeList = new ArrayList<NodePanel>();
 		setResizable(false);
 		setTitle("Block Creator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -391,12 +397,41 @@ public class DrawingPalletWindow extends JFrame {
 		});
 		btnInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				drawingTool.setTool(ToolType.Input);	
+				System.out.println("CRICO");
+				pnlDrawing.addMouseListener(new MouseAdapter() {
+					
+					@Override
+					public void mouseClicked(MouseEvent arg1) {
+						NodePanel node = new NodePanel(arg1.getPoint(), true);
+						System.out.println(arg1);
+						node.setVisible(true);
+						nodeList.add(node);
+						pnlDrawing.add(node);
+						for(MouseListener listener: pnlDrawing.getMouseListeners()) {
+							pnlDrawing.removeMouseListener(listener);
+						}
+						//pnlDrawing.removeMouseListener(pnlDrawing.getMouseListeners()[0]);
+						pnlDrawing.repaint();
+					}
+				});			
 			}
 		});
 		btnOutput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				drawingTool.setTool(ToolType.Output);	
+				pnlDrawing.addMouseListener(new MouseAdapter() {
+					
+					@Override
+					public void mouseClicked(MouseEvent arg1) {
+						NodePanel node = new NodePanel(arg1.getPoint(), false);
+						System.out.println(arg1);
+						node.setVisible(true);
+						nodeList.add(node);
+						pnlDrawing.add(node);
+						pnlDrawing.removeMouseListener(pnlDrawing.getMouseListeners()[0]);
+						pnlDrawing.repaint();
+					}
+				});
+
 			}
 		});
 		btnChooseColor.addActionListener(new ActionListener() {
@@ -449,6 +484,7 @@ public class DrawingPalletWindow extends JFrame {
 				pnlDrawing.getGraphics().drawImage(bImage,0,0,null);
 		      
 				g2d_image.dispose();
+				pnlDrawing.repaint();
 			}
 		});
 
@@ -475,4 +511,6 @@ public class DrawingPalletWindow extends JFrame {
 			btnOval.setText("Oval");	
 		}
 	}
+	
+
 }
