@@ -6,6 +6,11 @@ public class Or extends ElementoLogico
 	//1 OR OUTPUT
 	private Boolean output;
 
+	public Or(String nome)
+	{
+		super(nome);
+	}
+
 	//SET INPUT(WHERE) VALUE
 	public void setInput(Boolean value, int where)
 	{

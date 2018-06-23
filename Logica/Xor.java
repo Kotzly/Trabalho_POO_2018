@@ -6,6 +6,11 @@ public class Xor extends ElementoLogico
 	//1 XOR OUTPUT
 	private Boolean output;
 
+	public Xor(String nome)
+	{
+		super(nome);
+	}
+
 	//SET INPUT(WHERE) VALUE
 	public void setInput(Boolean value, int where)
 	{

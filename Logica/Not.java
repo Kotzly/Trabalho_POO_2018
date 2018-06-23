@@ -5,6 +5,11 @@ public class Not extends ElementoLogico
 	//NOT OUTPUT
 	private Boolean output;
 
+	public Not(String nome)
+	{
+		super(nome);
+	}
+
 	//SET INPUT VALUE
 	public void setInput(Boolean value)
 	{

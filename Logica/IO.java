@@ -3,6 +3,11 @@ public class IO extends ElementoLogico
 	//OUTPUT
 	private Boolean output;
 
+	public IO(String nome)
+	{
+		super(nome);
+	}
+
 	//SET OUTPUT AS THE SAME VALUE OF INPUT
 	public void setInput(Boolean value)
 	{

@@ -9,54 +9,54 @@ public class Circuito
 	private String nome;
 
 	//ADD 
-	public void add(int elemento)
+	public void add(int elemento, String nome)
 	{	
 		ElementoLogico novo;
 		if(elemento == 1)
 		{
-			novo = new Not();
+			novo = new Not(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 2)
 		{
-			novo = new IO();
+			novo = new IO(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 3)
 		{
-			novo = new And();
+			novo = new And(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 4)
 		{
-			novo = new Or();
+			novo = new Or(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 5)
 		{
-			novo = new Xor();
+			novo = new Xor(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 6)
 		{
-			novo = new NAnd();
+			novo = new NAnd(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 7)
 		{
-			novo = new NXor();
+			novo = new NXor(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}
 		else if(elemento == 8)
 		{
-			novo = new NOr();
+			novo = new NOr(nome);
 			indice.put(novo.getNome(), circuitSize);
 			mapa.put(circuitSize++, novo);
 		}

@@ -6,6 +6,11 @@ public class And extends ElementoLogico
 	//1 AND OUTPUT
 	private Boolean output;
 
+	public And(String nome)
+	{
+		super(nome);
+	}
+
 	//SET INPUT(WHERE) VALUE
 	public void setInput(Boolean value, int where)
 	{

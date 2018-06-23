@@ -1,8 +1,13 @@
 public class NXor extends ElementoLogico
 {
 	//NOR AS OR + NOT
-	private Xor in1 =  new Xor();
-	private Not in2 = new Not();
+	private Xor in1 =  new Xor("nome");
+	private Not in2 = new Not("nome");
+
+	public NXor(String nome)
+	{
+		super(nome);
+	}
 
 	//SET XOR INPUT AS VALUE AT WHERE, AND SET NOT INPUT AS XOR OUTPUT
 	public void setInput(Boolean value, int where)

@@ -1,8 +1,13 @@
 public class NAnd extends ElementoLogico
 {	
 	//NAND AS AND + NOT
-	private And in1 =  new And();
-	private Not in2 = new Not();
+	private And in1 =  new And("nome");
+	private Not in2 = new Not("nome");
+
+	public NAnd(String nome)
+	{
+		super(nome);
+	}
 
 	//SET AND INPUT AS VALUE AT WHERE, AND SET NOT INPUT AS AND OUTPUT
 	public void setInput(Boolean value, int where)
