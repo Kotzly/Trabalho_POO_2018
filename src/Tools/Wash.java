@@ -8,6 +8,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 
+/**
+ * @author Paulo Augusto
+ * Wash tool (fill)
+ */
 public class Wash extends Tool {
 	
 	public boolean isHold;

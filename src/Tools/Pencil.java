@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
+/**
+ * @author Paulo Augusto
+ * Pencil Tool
+ */
 public class Pencil extends Tool {
 	
 	public boolean isHold;

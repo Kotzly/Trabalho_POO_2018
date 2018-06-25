@@ -12,6 +12,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import net.miginfocom.swing.MigLayout;
+import wnds.GraphPanel;
+
 import com.jgoodies.forms.layout.FormSpecs;
 
 public class teste extends JFrame {

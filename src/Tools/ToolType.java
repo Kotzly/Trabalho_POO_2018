@@ -1,5 +1,9 @@
 package Tools;
 
+/**
+ * @author Paulo Augusto
+ * ToolTypes enumerate
+ */
 public enum ToolType {
 	
 

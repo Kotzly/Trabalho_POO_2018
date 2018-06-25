@@ -1,6 +1,10 @@
 package Tools;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+/**
+ * @author Paulo Augusto
+ * Rectangle tool
+ */
 public class Rect extends Tool {
 	
 	private boolean isHold;

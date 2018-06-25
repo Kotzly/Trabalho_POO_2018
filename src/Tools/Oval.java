@@ -1,6 +1,10 @@
 package Tools;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+/**
+ * @author Paulo Augusto
+ *	Oval tool
+ */
 public class Oval extends Tool {
 	
 	private boolean isHold;
