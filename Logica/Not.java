@@ -11,12 +11,14 @@ public class Not extends ElementoLogico
 	}
 
 	//SET INPUT VALUE
-	public void setInput(Boolean value)
+	@Override
+	public void setInput(Boolean value, int where)
 	{
 		input = value;
 	}
 
 	//GET OUTPUT BY NOT LOGIC OPERATION
+	@Override
 	public Boolean getOutput()
 	{
 		output = !input;

@@ -4,6 +4,7 @@ public class And extends ElementoLogico
 	private Boolean input2;
 	private Boolean output;
 
+	@overrides
 	public void setInput(Boolean value, int where)
 	{
 		if(where == 1)
@@ -12,6 +13,7 @@ public class And extends ElementoLogico
 			input2 = value;
 	}
 
+	@overrides
 	public Boolean getOutput()
 	{
 		output = input1 && input2;

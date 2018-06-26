@@ -10,13 +10,15 @@ public class NAnd extends ElementoLogico
 	}
 
 	//SET AND INPUT AS VALUE AT WHERE, AND SET NOT INPUT AS AND OUTPUT
+	@Override
 	public void setInput(Boolean value, int where)
 	{
 		in1.setInput(value, where);
-		in2.setInput(in1.getOutput());
+		in2.setInput(in1.getOutput(), 0);
 	}
 
 	//RETURN AS NAND OUTPUT THE NOT(AND) OUTPUT
+	@Override
 	public Boolean getOutput()
 	{
 		return in2.getOutput();

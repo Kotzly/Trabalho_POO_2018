@@ -3,8 +3,8 @@ public class Circuito
 {
 	//CIRCUIT REPRESENTED AS A GRAPH IN ADJACENCE MATRIX
 	public int circuito[][] = new int[1000][1000];
-	private Map<Integer,ElementoLogico> mapa = new HashMap<Integer,ElementoLogico>();
-	private Map<String,Integer> indice = new HashMap<String,Integer>();
+	public Map<Integer,ElementoLogico> mapa = new HashMap<Integer,ElementoLogico>();
+	public Map<String,Integer> indice = new HashMap<String,Integer>();
 	private int circuitSize = 0;
 	private String nome;
 
@@ -87,5 +87,4 @@ public class Circuito
 		circuito[keyD][keyS] = -1;
 	}
 
-	Not not = new Not("Joao");
 }

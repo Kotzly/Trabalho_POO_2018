@@ -12,6 +12,7 @@ public class Xor extends ElementoLogico
 	}
 
 	//SET INPUT(WHERE) VALUE
+	@Override
 	public void setInput(Boolean value, int where)
 	{
 		if(where == 1)
@@ -21,6 +22,7 @@ public class Xor extends ElementoLogico
 	}
 
 	//GET OUTPUT BY XOR LOGIC OPERATION
+	@Override
 	public Boolean getOutput()
 	{
 		output = input1 ^ input2;

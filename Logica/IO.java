@@ -9,7 +9,7 @@ public class IO extends ElementoLogico
 	}
 
 	//SET OUTPUT AS THE SAME VALUE OF INPUT
-	public void setInput(Boolean value)
+	public void setInput(Boolean value, int i)
 	{
 		output = value;
 	}

@@ -10,13 +10,15 @@ public class NOr extends ElementoLogico
 	}
 
 	//SET OR INPUT AS VALUE AT WHERE, AND SET NOT INPUT AS Or OUTPUT
+	@Override
 	public void setInput(Boolean value, int where)
 	{
 		in1.setInput(value, where);
-		in2.setInput(in1.getOutput());
+		in2.setInput(in1.getOutput(), 0);
 	}
 
 	//RETURN AS NOr OUTPUT THE NOT(OR) OUTPUT
+	@Override
 	public Boolean getOutput()
 	{
 		return in2.getOutput();

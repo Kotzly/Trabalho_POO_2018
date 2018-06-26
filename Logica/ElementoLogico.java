@@ -17,6 +17,16 @@ public class ElementoLogico
 
 	}
 
+	public void setInput(Boolean value, int where)
+	{
+
+	}
+
+	public Boolean getOutput()
+	{
+		return true;
+	}
+
 	public void setNome(String nome)
 	{
 		this.nome = nome;

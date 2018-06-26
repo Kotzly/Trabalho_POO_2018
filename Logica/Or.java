@@ -12,6 +12,7 @@ public class Or extends ElementoLogico
 	}
 
 	//SET INPUT(WHERE) VALUE
+	@Override
 	public void setInput(Boolean value, int where)
 	{
 		if(where == 1)
@@ -21,6 +22,7 @@ public class Or extends ElementoLogico
 	}
 
 	//GET OUTPUT BY OR LOGIC OPERATION
+	@Override
 	public Boolean getOutput()
 	{
 		output = input1 || input2;
