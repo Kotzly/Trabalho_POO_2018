@@ -94,4 +94,22 @@ public class Circuito
 
 		circuito[keyS][keyD] = 0; 
 	}
+
+	//CONTINUIDADE
+	public Boolean continuidade(ElementoLogico source, ElementoLogico destiny)
+	{
+		int grafo[][] = new int[1000][1000];
+		for(int i = 0; i < circuitSize; i++)
+		{
+			for (int j = 0; j < circuitSize; j++) 
+			{
+				grafo[i][j] = circuito[i][j] + circuito[j][i];	
+			}
+		}
+		int keyS = indice.get(source.getNome());
+		int keyD = indice.get(destiny.getNome());
+		Dijkstra djk = new Dijkstra();
+
+		return djk.dijkstra(grafo, keyS, keyD);
+	}
 }
