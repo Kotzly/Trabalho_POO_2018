@@ -78,13 +78,20 @@ public class Circuito
 	}
 
 	//LINK
-	public void link(ElementoLogico source, ElementoLogico destiny)
+	public void link(ElementoLogico source, ElementoLogico destiny, int where)
 	{
 		int keyS = indice.get(source.getNome());
 		int keyD = indice.get(destiny.getNome());
 
-		circuito[keyS][keyD] = 1; 
-		circuito[keyD][keyS] = -1;
+		circuito[keyS][keyD] = where; 
 	}
 
+	//UNLINK
+	public void unlink(ElementoLogico source, ElementoLogico destiny, int where)
+	{
+		int keyS = indice.get(source.getNome());
+		int keyD = indice.get(destiny.getNome());
+
+		circuito[keyS][keyD] = 0; 
+	}
 }
